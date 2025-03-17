@@ -62,6 +62,7 @@ public class ProceduralParkourBehaviour : MonoBehaviour
 
     private void Initialize()
     {
+        
         GameObject pooledObject = parkourObjectPrefab.gameObject.Reuse(playerControllerTransform.position - BehindCharacterSpawnedLength, Quaternion.identity);
         ParkourObject parkourComponent = pooledObject.GetComponent<ParkourObject>();
         parkourComponent.Deform(0);

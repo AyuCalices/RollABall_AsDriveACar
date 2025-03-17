@@ -25,7 +25,7 @@ public class CharacterMoveBehaviour : MonoBehaviour
     private bool _groundedPlayer;
     private float _playerSpeedForward;
     private Vector3 _originPosition;
-    private bool _reset;
+    private bool _hasCarColliderCrash;
     
     public float Kmh { get; private set; }
     private int _highestSpeed;
@@ -42,8 +42,8 @@ public class CharacterMoveBehaviour : MonoBehaviour
 
     private void Initialize()
     {
-        _reset = false;
-        transform.position = _originPosition;
+        _hasCarColliderCrash = false;
+        controller.Move(_originPosition - transform.position);
         _playerSpeedForward = playerBaseSpeedForward;
         _playerVerticalVelocity = 0f;
     }
@@ -89,12 +89,14 @@ public class CharacterMoveBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        _reset = true;
+        _hasCarColliderCrash = true;
     }
 
     private void LateUpdate()
     {
-        if (!_reset && !(transform.position.y < deathHeight)) return;
+        if (!_hasCarColliderCrash && !(transform.position.y < deathHeight)) return;
+        
+        Debug.Log(transform.name + " " + transform.position.y + " " + deathHeight);
         
         int currentPoints = PlayerPrefs.GetInt("Points");
         if (currentPoints < transform.position.z)
