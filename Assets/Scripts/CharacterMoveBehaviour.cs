@@ -96,8 +96,6 @@ public class CharacterMoveBehaviour : MonoBehaviour
     {
         if (!_hasCarColliderCrash && !(transform.position.y < deathHeight)) return;
         
-        Debug.Log(transform.name + " " + transform.position.y + " " + deathHeight);
-        
         int currentPoints = PlayerPrefs.GetInt("Points");
         if (currentPoints < transform.position.z)
         {
